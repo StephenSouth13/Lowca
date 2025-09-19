@@ -120,7 +120,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+  :root {
+    --bottom-nav-height: 4.5rem; /* default mobile */
+  }
+  @media (min-width: 768px) {
+    :root {
+      --bottom-nav-height: 4rem; /* laptop/tablet */
+    }
+  }
+
   body {
     @apply bg-background text-foreground;
+    padding-bottom: var(--bottom-nav-height);
   }
 }
