@@ -111,17 +111,17 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background max-w-screen-xl mx-auto">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 pt-12 pb-4 bg-card border-b border-border">
+      <div className="flex items-center gap-3 px-4 pt-12 pb-4 md:px-6 md:pt-14 md:pb-6 bg-card border-b border-border">
         <Button variant="ghost" size="sm" onClick={onBack} className="h-10 w-10 p-0 hover:bg-secondary">
           <ArrowLeft className="h-5 w-5 text-black" />
         </Button>
-        <h1 className="text-lg font-semibold text-card-foreground">Nearby F&B Spots</h1>
+        <h1 className="text-lg md:text-xl font-semibold text-card-foreground">Nearby F&B Spots</h1>
       </div>
 
       {/* Map Container */}
-      <div className="relative h-96 bg-muted">
+      <div className="relative h-[50vh] lg:h-[60vh] bg-muted">
         {/* Mock Map Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100 flex items-center justify-center">
           <div className="text-center text-muted-foreground">
@@ -161,7 +161,7 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
 
       {/* Location Details */}
       {selectedLocation && (
-        <div className="p-4 bg-card border-b border-border">
+        <div className="p-4 md:p-6 bg-card border-b border-border">
           <div className="flex justify-between items-start">
             <div className="flex-1">
               <h3 className="font-semibold text-card-foreground mb-1">{selectedLocation.name}</h3>
@@ -208,9 +208,9 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
       )}
 
       {/* Location List */}
-      <div className="p-4">
-        <h2 className="text-lg font-semibold text-card-foreground mb-4">All Nearby Locations</h2>
-        <div className="space-y-3">
+      <div className="p-4 md:p-6">
+        <h2 className="text-lg md:text-xl font-semibold text-card-foreground mb-4">All Nearby Locations</h2>
+        <div className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
           {nearbyLocations.map((location) => (
             <div
               key={location.id}
