@@ -25,7 +25,7 @@ interface MapViewProps {
 export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurrentPicks }: MapViewProps) {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
-  const [visibleLocations, setVisibleLocations] = useState<Location[]>([])
+  const [visibleLocations, setVisibleLocations] = useState<any[]>([])
 
   // Mock F&B locations near user
   const nearbyLocations: Location[] = [
