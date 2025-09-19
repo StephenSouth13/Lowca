@@ -37,13 +37,22 @@ export default function ProfilePage() {
       <div className="max-w-screen-xl mx-auto px-4 py-6 md:py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 md:mb-8">
-          <div>
-            <h1 className="text-xl md:text-2xl font-semibold text-card-foreground">Profile</h1>
-            <p className="text-sm text-muted-foreground">Manage your bookings and preferences</p>
+          <div className="flex items-center gap-3">
+            <Button asChild variant="ghost" size="sm" className="p-2">
+              <Link href="/">
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                  <span className="sr-only">Back to Home</span>
+                </span>
+              </Link>
+            </Button>
+            <div>
+              <h1 className="text-xl md:text-2xl font-semibold text-card-foreground">Profile</h1>
+              <p className="text-sm text-muted-foreground">Manage your bookings and preferences</p>
+            </div>
           </div>
-          <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
-            <Link href="/">Back to Home</Link>
-          </Button>
         </div>
 
         {/* Top grid */}
