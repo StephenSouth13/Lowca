@@ -64,6 +64,8 @@ export default function HomePage() {
       distance: "0.8km",
       rating: 4.7,
       priceRange: "40,000 - 70,000 VND",
+      image: "/bun-cha-vietnamese-grilled-pork-noodles.jpg",
+      badge: "Popular",
     },
     {
       id: 5,
@@ -72,6 +74,8 @@ export default function HomePage() {
       distance: "1.5km",
       rating: 4.6,
       priceRange: "150,000 - 300,000 VND",
+      image: "/rooftop-bar-eon.jpg",
+      badge: "Trending",
     },
     {
       id: 6,
@@ -80,6 +84,28 @@ export default function HomePage() {
       distance: "0.3km",
       rating: 4.3,
       priceRange: "25,000 - 50,000 VND",
+      image: "/cong-ca-phe.jpg",
+      badge: "Local",
+    },
+    {
+      id: 9,
+      name: "Phở Hòa Pasteur",
+      type: "Vietnamese",
+      distance: "0.5km",
+      rating: 4.5,
+      priceRange: "50,000 - 80,000 VND",
+      image: "/pho-hoa-pasteur.jpg",
+      badge: "Featured",
+    },
+    {
+      id: 10,
+      name: "The Deck Saigon",
+      type: "Fine Dining",
+      distance: "2.0km",
+      rating: 4.8,
+      priceRange: "300,000 - 600,000 VND",
+      image: "/the-deck-saigon.jpg",
+      badge: "Premium",
     },
   ]
 
@@ -91,6 +117,8 @@ export default function HomePage() {
       distance: "1.1km",
       rating: 4.4,
       priceRange: "60,000 - 120,000 VND",
+      image: "/quan-an-ngon.jpg",
+      tags: ["Family", "Local Favorite"],
     },
     {
       id: 8,
@@ -99,6 +127,28 @@ export default function HomePage() {
       distance: "2.3km",
       rating: 4.9,
       priceRange: "300,000 - 600,000 VND",
+      image: "/bitexco-skybar.jpg",
+      tags: ["Rooftop", "Reservation"],
+    },
+    {
+      id: 11,
+      name: "L'Usine Coffee",
+      type: "Coffee & Bakery",
+      distance: "0.3km",
+      rating: 4.5,
+      priceRange: "50,000 - 80,000 VND",
+      image: "/lusine-coffee.jpg",
+      tags: ["WiFi", "Work Friendly"],
+    },
+    {
+      id: 12,
+      name: "Bánh Mì Huỳnh Hoa",
+      type: "Street Food",
+      distance: "0.7km",
+      rating: 4.6,
+      priceRange: "20,000 - 40,000 VND",
+      image: "/banh-mi-huynh-hoa.jpg",
+      tags: ["Quick Bite", "Popular"],
     },
   ]
 
@@ -424,6 +474,8 @@ export default function HomePage() {
         onAddToPick={handleAddToPick}
         onCreateNewPick={handleCreateNewPick}
       />
+
+      <BackToTop />
 
       {/* Fixed Bottom Navigation */}
       <BottomNavigation onSearchClick={handleBackToLanding} />
