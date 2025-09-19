@@ -16,60 +16,70 @@ export function BottomNavigation({ onSearchClick }: BottomNavigationProps) {
   const isProfile = pathname?.startsWith("/profile")
 
   return (
-    <nav role="navigation" aria-label="Bottom Navigation" className="fixed bottom-0 left-0 right-0 md:hidden z-50">
+    <nav role="navigation" aria-label="Bottom Navigation" className="fixed bottom-0 left-0 right-0 z-50">
       <div className="mx-4 mb-4 bg-card/95 backdrop-blur-sm border border-border rounded-2xl shadow-lg">
         <div className="relative pt-3">
-          {/* Floating center button */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-6">
+          {/* Floating center button on small screens; static on larger */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-6 md:static md:transform-none md:-translate-y-0 md:mx-auto md:w-full md:flex md:items-center md:justify-center md:py-3">
             <Button
               asChild
-              className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl bg-gradient-to-br from-primary to-primary/90 text-white border border-transparent"
+              className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl bg-gradient-to-br from-primary to-primary/90 text-white border border-transparent md:w-10 md:h-10 md:rounded-md md:shadow-none md:bg-transparent md:text-primary"
             >
               <Link href="/" aria-current={isHome ? "page" : undefined}>
-                <Home className="w-6 h-6" />
+                <Home className="w-6 h-6 md:w-5 md:h-5" />
                 <span className="sr-only">Home</span>
               </Link>
             </Button>
           </div>
 
-          <div className="flex items-center justify-between px-6 py-3">
+          <div className="flex items-center justify-between px-6 py-3 md:px-8 md:py-4 md:gap-6 md:justify-around">
             {/* Left: Search */}
             {onSearchClick ? (
               <Button
                 variant="ghost"
-                className="flex flex-col items-center gap-1 text-muted-foreground hover:text-card-foreground transition-colors"
+                className="flex flex-col items-center gap-1 text-muted-foreground hover:text-card-foreground transition-colors md:flex-row md:gap-2"
                 onClick={onSearchClick}
                 aria-label="Search"
               >
-                <Search className="w-5 h-5" />
-                <span className="text-xs font-medium">Search</span>
+                <Search className="w-5 h-5 md:w-5 md:h-5" />
+                <span className="text-xs font-medium md:text-sm md:inline">Search</span>
               </Button>
             ) : (
-              <Button asChild variant="ghost" className="flex flex-col items-center gap-1 text-muted-foreground hover:text-card-foreground transition-colors">
+              <Button asChild variant="ghost" className="flex flex-col items-center gap-1 text-muted-foreground hover:text-card-foreground transition-colors md:flex-row md:gap-2">
                 <Link href="/" aria-label="Search">
-                  <Search className="w-5 h-5" />
-                  <span className="text-xs font-medium">Search</span>
+                  <Search className="w-5 h-5 md:w-5 md:h-5" />
+                  <span className="text-xs font-medium md:text-sm md:inline">Search</span>
                 </Link>
               </Button>
             )}
 
-            {/* spacer to align with center float */}
-            <div className="w-6" />
+            {/* Center: on larger screens show Home inline */}
+            <div className="hidden md:flex md:items-center md:justify-center md:flex-1">
+              <Button asChild variant="ghost" className={cn(
+                "flex items-center gap-2 text-muted-foreground hover:text-card-foreground transition-colors",
+                isHome ? "text-primary" : "",
+              )}>
+                <Link href="/" aria-current={isHome ? "page" : undefined}>
+                  <Home className="w-5 h-5" />
+                  <span className="text-sm font-medium">Home</span>
+                </Link>
+              </Button>
+            </div>
 
             {/* Right: Profile */}
             <Button asChild variant="ghost" className={cn(
-              "flex flex-col items-center gap-1 text-muted-foreground hover:text-card-foreground transition-colors",
+              "flex flex-col items-center gap-1 text-muted-foreground hover:text-card-foreground transition-colors md:flex-row md:gap-2",
               isProfile ? "text-primary" : "",
             )}>
               <Link href="/profile" aria-current={isProfile ? "page" : undefined}>
                 <User className="w-5 h-5" />
-                <span className="text-xs font-medium">Profile</span>
+                <span className="text-xs font-medium md:text-sm md:inline">Profile</span>
               </Link>
             </Button>
           </div>
 
           {/* bottom indicator */}
-          <div className="flex justify-center pb-3">
+          <div className="flex justify-center pb-3 md:pb-2">
             <div className="w-28 h-1 bg-border rounded-full"></div>
           </div>
         </div>
