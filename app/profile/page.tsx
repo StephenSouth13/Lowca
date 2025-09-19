@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar, Clock, MapPin, Phone, Star, User2, Wallet } from "lucide-react"
 import Link from "next/link"
+import { BottomNavigation } from "@/components/bottom-navigation"
 
 export default function ProfilePage() {
   const user = {
