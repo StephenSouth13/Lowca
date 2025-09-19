@@ -19,20 +19,8 @@ export function BottomNavigation({ onSearchClick }: BottomNavigationProps) {
     <nav role="navigation" aria-label="Bottom Navigation" className="fixed bottom-0 left-0 right-0 z-50">
       <div className="mx-4 mb-4 bg-card/95 backdrop-blur-sm border border-border rounded-2xl shadow-lg">
         <div className="relative pt-3">
-          {/* Floating center button on small screens; static on larger */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-6 md:static md:transform-none md:-translate-y-0 md:mx-auto md:w-full md:flex md:items-center md:justify-center md:py-3">
-            <Button
-              asChild
-              className="w-14 h-14 rounded-full flex items-center justify-center shadow-xl bg-gradient-to-br from-primary to-primary/90 text-white border border-transparent md:w-10 md:h-10 md:rounded-md md:shadow-none md:bg-transparent md:text-primary"
-            >
-              <Link href="/" aria-current={isHome ? "page" : undefined}>
-                <Home className="w-6 h-6 md:w-5 md:h-5" />
-                <span className="sr-only">Home</span>
-              </Link>
-            </Button>
-          </div>
-
           <div className="flex items-center justify-between px-6 py-3 md:px-8 md:py-4 md:gap-6 md:justify-around">
+            {/* Left: Search */}
             {/* Left: Search */}
             {onSearchClick ? (
               <Button
