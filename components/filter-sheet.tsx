@@ -87,7 +87,7 @@ export function FilterSheet({ open, onOpenChange, onApplyFilters }: FilterSheetP
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[90vh] bg-card border-border">
+      <SheetContent side="bottom" className="h-[90vh] bg-card border-border md:h-auto md:max-h-[80vh] md:w-3/4 md:mx-auto md:rounded-lg md:top-1/2 md:-translate-y-1/2 md:transform">
         <SheetHeader className="pb-6">
           <div className="flex items-center justify-between">
             <SheetTitle className="text-card-foreground">Filters</SheetTitle>
@@ -97,7 +97,7 @@ export function FilterSheet({ open, onOpenChange, onApplyFilters }: FilterSheetP
           </div>
         </SheetHeader>
 
-        <div className="space-y-8 overflow-y-auto h-full pb-24">
+        <div className="space-y-8 overflow-y-auto h-full pb-32 md:pb-6 px-4 md:px-6">
           {/* Location Types */}
           <div>
             <h3 className="font-semibold text-card-foreground mb-3">Location Type</h3>
@@ -230,18 +230,20 @@ export function FilterSheet({ open, onOpenChange, onApplyFilters }: FilterSheetP
         </div>
 
         {/* Fixed Bottom Actions */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-card border-t border-border">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={clearFilters}
-              className="flex-1 bg-transparent text-card-foreground border-border hover:bg-secondary"
-            >
-              Clear All
-            </Button>
-            <Button onClick={handleApply} className="flex-1 bg-primary text-primary-foreground">
-              Apply Filters
-            </Button>
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-card border-t border-border md:relative md:mt-4 md:border-t-0 md:bg-transparent md:p-0">
+          <div className="flex gap-3 flex-col md:flex-row md:items-center">
+            <div className="flex w-full gap-3">
+              <Button
+                variant="outline"
+                onClick={clearFilters}
+                className="flex-1 bg-transparent text-card-foreground border-border hover:bg-secondary"
+              >
+                Clear All
+              </Button>
+              <Button onClick={handleApply} className="flex-1 bg-primary text-primary-foreground">
+                Apply Filters
+              </Button>
+            </div>
           </div>
         </div>
       </SheetContent>

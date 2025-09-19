@@ -12,7 +12,7 @@ export function RecommendationSection({ onLocationClick }: RecommendationSection
   const recommendations = [
     {
       id: 1,
-      name: "Bánh Mì Huỳnh Hoa",
+      name: "Bánh Mì Hu���nh Hoa",
       type: "Street Food",
       rating: 4.8,
       distance: "0.5 km",
@@ -66,7 +66,7 @@ export function RecommendationSection({ onLocationClick }: RecommendationSection
     <div className="px-4 py-6">
       <h2 className="text-lg font-semibold text-card-foreground mb-4">{"Recommendations for You"}</h2>
 
-      <div className="space-y-4">
+      <div className="space-y-4 md:grid md:grid-cols-2 md:gap-4 md:space-y-0 lg:grid-cols-3">
         {recommendations.map((item) => (
           <Card
             key={item.id}
