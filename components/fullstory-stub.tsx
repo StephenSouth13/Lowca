@@ -17,10 +17,21 @@ export default function FullstoryStub() {
             return Promise.resolve(new Response(null, { status: 204 }))
           }
         } catch (e) {
-          // ignore
+          // ignore parsing errors
+          return Promise.resolve(new Response(null, { status: 204 }))
         }
-        // @ts-ignore
-        return originalFetch.call(this, input, init)
+
+        try {
+          // Call original fetch but swallow network errors so third-party scripts can't break HMR/Navigation
+          // @ts-ignore
+          const result = originalFetch.call(this, input, init)
+          if (result && typeof result.then === 'function') {
+            return result.catch(() => Promise.resolve(new Response(null, { status: 204 })))
+          }
+          return result
+        } catch (err) {
+          return Promise.resolve(new Response(null, { status: 204 }))
+        }
       }
 
       return () => {
