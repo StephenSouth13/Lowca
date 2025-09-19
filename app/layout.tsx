@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        <script dangerouslySetInnerHTML={{__html: `(function(){try{var _f=window.fetch;window.fetch=function(input,init){try{var u=typeof input==='string'?input:(input&&input.url)||'';if(u&&u.indexOf('edge.fullstory.com')!==-1){return Promise.resolve(new Response(null,{status:204}));}}catch(e){}return _f.call(this,input,init);};}catch(e){}})();`}} />
         <FullstoryStub />
         {children}
         <Analytics />
