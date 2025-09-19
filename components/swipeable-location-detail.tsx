@@ -166,7 +166,7 @@ export function SwipeableLocationDetail({
       )}
 
       <div className="absolute inset-0 top-16 bottom-16 flex items-center justify-center px-4">
-        <div className="w-full max-w-sm bg-background border border-border rounded-lg p-4 shadow-lg transition-all duration-300 ease-in-out">
+        <div className="w-full max-w-md md:max-w-lg lg:max-w-2xl bg-background border border-border rounded-lg p-4 md:p-6 shadow-lg transition-all duration-300 ease-in-out">
           <div className="flex gap-4 mb-4">
             {/* Left side - Images */}
             <div className="flex-shrink-0 w-24">

@@ -65,14 +65,14 @@ export function TrendingSection({ onLocationClick }: TrendingSectionProps) {
         {trendingItems.map((item) => (
           <Card
             key={item.id}
-            className="flex-shrink-0 w-48 bg-card border-border overflow-hidden cursor-pointer hover:bg-muted/50 transition-colors"
+            className="flex-shrink-0 w-48 md:w-56 lg:w-64 bg-card border-border overflow-hidden cursor-pointer hover:bg-muted/50 transition-colors"
             onClick={() => handleItemClick(item)}
           >
             <div className="relative">
-              <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-full h-28 object-cover" />
+              <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-full h-28 md:h-36 lg:h-40 object-cover" />
               <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground text-xs">{item.badge}</Badge>
             </div>
-            <div className="p-3 h-28">
+            <div className="p-3 h-28 md:h-32 lg:h-36">
               <h3 className="font-medium text-card-foreground text-sm mb-1 line-clamp-1">{item.name}</h3>
               <p className="text-muted-foreground text-xs">{item.type}</p>
               <p className="text-muted-foreground text-xs">Rating: {item.rating}</p>

@@ -269,7 +269,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Main Content */}
-      <div className="pb-20">
+      <div className="pb-20 max-w-screen-xl mx-auto">
         <SearchHeader
           ref={searchHeaderRef}
           onSearch={handleSearch}
