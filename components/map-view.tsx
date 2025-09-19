@@ -1,5 +1,6 @@
 "use client"
 
+"use client"
 import { useState, useEffect } from "react"
 import { ArrowLeft, MapPin, Star, Share2, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -25,6 +26,7 @@ interface MapViewProps {
 export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurrentPicks }: MapViewProps) {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
+  const [visibleLocations, setVisibleLocations] = useState<any[]>([])
 
   // Mock F&B locations near user
   const nearbyLocations: Location[] = [
@@ -80,27 +82,57 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
     },
   ]
 
-  useEffect(() => {
-    // Get user's current location
+  // Utility: haversine distance in km
+  const getDistanceKm = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const toRad = (v: number) => (v * Math.PI) / 180
+    const R = 6371 // km
+    const dLat = toRad(lat2 - lat1)
+    const dLon = toRad(lon2 - lon1)
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return R * c
+  }
+
+  const fetchUserLocation = (opts?: PositionOptions) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          })
+          const loc = { lat: position.coords.latitude, lng: position.coords.longitude }
+          setUserLocation(loc)
         },
         (error) => {
           console.log("Location access denied, using default location")
-          // Default to Ho Chi Minh City center
           setUserLocation({ lat: 10.7769, lng: 106.7009 })
         },
+        opts,
       )
     } else {
-      // Default location if geolocation is not supported
       setUserLocation({ lat: 10.7769, lng: 106.7009 })
     }
+  }
+
+  useEffect(() => {
+    // initial fetch
+    fetchUserLocation()
   }, [])
+
+  useEffect(() => {
+    if (!userLocation) return
+    // compute distances and sort
+    const enriched = nearbyLocations
+      .map((l) => ({
+        ...l,
+        distanceKm: getDistanceKm(userLocation.lat, userLocation.lng, l.lat, l.lng),
+      }))
+      .sort((a, b) => a.distanceKm - b.distanceKm)
+      .map((l) => ({
+        ...l,
+        distance: l.distanceKm < 1 ? `${Math.round(l.distanceKm * 1000)}m` : `${l.distanceKm.toFixed(1)}km`,
+      }))
+    setVisibleLocations(enriched)
+  }, [userLocation])
 
   const handleLocationSelect = (location: Location) => {
     setSelectedLocation(location)
@@ -132,7 +164,7 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
         </div>
 
         {/* Location Pins */}
-        {nearbyLocations.map((location, index) => (
+        {visibleLocations.map((location, index) => (
           <button
             key={location.id}
             className={`absolute w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg transition-all ${
@@ -145,6 +177,7 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
               top: `${30 + (index % 3) * 20}%`,
             }}
             onClick={() => handleLocationSelect(location)}
+            title={`${location.name} — ${location.distance}`}
           >
             {index + 1}
           </button>
@@ -155,8 +188,16 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
           <div
             className="absolute w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg"
             style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
+            title="Your location"
           />
         )}
+
+        {/* Recenter / locate button */}
+        <div className="absolute right-3 top-3">
+          <Button size="sm" variant="outline" onClick={() => fetchUserLocation({ enableHighAccuracy: true })} className="h-9 w-9 p-0">
+            <MapPin className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
 
       {/* Location Details */}

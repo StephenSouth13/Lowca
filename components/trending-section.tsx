@@ -89,6 +89,29 @@ export function TrendingSection({ onLocationClick }: TrendingSectionProps) {
           <div key={dot} className={`w-2 h-2 rounded-full ${index === 0 ? "bg-primary" : "bg-border"}`} />
         ))}
       </div>
+
+      {/* Additional horizontal scroller (ads) */}
+      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide mt-6">
+        {trendingItems.map((item) => (
+          <Card
+            key={`ad-${item.id}`}
+            className="flex-shrink-0 w-64 bg-card border-border overflow-hidden cursor-pointer hover:bg-muted/50 transition-colors"
+            onClick={() => handleItemClick(item)}
+          >
+            <div className="relative">
+              <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-full h-40 object-cover" />
+              <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground text-xs">{item.badge}</Badge>
+            </div>
+            <div className="p-3 h-36">
+              <h3 className="font-medium text-card-foreground text-sm mb-1 line-clamp-1">{item.name}</h3>
+              <p className="text-muted-foreground text-xs">{item.type}</p>
+              <p className="text-muted-foreground text-xs">Rating: {item.rating}</p>
+              <p className="text-muted-foreground text-xs">Distance: {item.distance}</p>
+              <p className="text-muted-foreground text-xs">Price Range: {item.priceRange}</p>
+            </div>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }
