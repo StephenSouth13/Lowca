@@ -230,18 +230,20 @@ export function FilterSheet({ open, onOpenChange, onApplyFilters }: FilterSheetP
         </div>
 
         {/* Fixed Bottom Actions */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-card border-t border-border">
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={clearFilters}
-              className="flex-1 bg-transparent text-card-foreground border-border hover:bg-secondary"
-            >
-              Clear All
-            </Button>
-            <Button onClick={handleApply} className="flex-1 bg-primary text-primary-foreground">
-              Apply Filters
-            </Button>
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-card border-t border-border md:relative md:mt-4 md:border-t-0 md:bg-transparent md:p-0">
+          <div className="flex gap-3 flex-col md:flex-row md:items-center">
+            <div className="flex w-full gap-3">
+              <Button
+                variant="outline"
+                onClick={clearFilters}
+                className="flex-1 bg-transparent text-card-foreground border-border hover:bg-secondary"
+              >
+                Clear All
+              </Button>
+              <Button onClick={handleApply} className="flex-1 bg-primary text-primary-foreground">
+                Apply Filters
+              </Button>
+            </div>
           </div>
         </div>
       </SheetContent>
