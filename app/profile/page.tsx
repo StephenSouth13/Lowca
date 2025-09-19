@@ -34,7 +34,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-screen-xl mx-auto px-4 py-6 md:py-8">
+      <div className="max-w-screen-xl mx-auto px-4 py-6 md:py-8 pb-24">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 md:mb-8">
           <div className="flex items-center gap-3">
@@ -207,6 +207,9 @@ export default function ProfilePage() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Fixed Bottom Navigation */}
+      <BottomNavigation />
     </div>
   )
 }
