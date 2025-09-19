@@ -81,27 +81,57 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
     },
   ]
 
-  useEffect(() => {
-    // Get user's current location
+  // Utility: haversine distance in km
+  const getDistanceKm = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+    const toRad = (v: number) => (v * Math.PI) / 180
+    const R = 6371 // km
+    const dLat = toRad(lat2 - lat1)
+    const dLon = toRad(lon2 - lon1)
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return R * c
+  }
+
+  const fetchUserLocation = (opts?: PositionOptions) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          })
+          const loc = { lat: position.coords.latitude, lng: position.coords.longitude }
+          setUserLocation(loc)
         },
         (error) => {
           console.log("Location access denied, using default location")
-          // Default to Ho Chi Minh City center
           setUserLocation({ lat: 10.7769, lng: 106.7009 })
         },
+        opts,
       )
     } else {
-      // Default location if geolocation is not supported
       setUserLocation({ lat: 10.7769, lng: 106.7009 })
     }
+  }
+
+  useEffect(() => {
+    // initial fetch
+    fetchUserLocation()
   }, [])
+
+  useEffect(() => {
+    if (!userLocation) return
+    // compute distances and sort
+    const enriched = nearbyLocations
+      .map((l) => ({
+        ...l,
+        distanceKm: getDistanceKm(userLocation.lat, userLocation.lng, l.lat, l.lng),
+      }))
+      .sort((a, b) => a.distanceKm - b.distanceKm)
+      .map((l) => ({
+        ...l,
+        distance: l.distanceKm < 1 ? `${Math.round(l.distanceKm * 1000)}m` : `${l.distanceKm.toFixed(1)}km`,
+      }))
+    setVisibleLocations(enriched)
+  }, [userLocation])
 
   const handleLocationSelect = (location: Location) => {
     setSelectedLocation(location)
