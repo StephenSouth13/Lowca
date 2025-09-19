@@ -478,7 +478,7 @@ export default function HomePage() {
       <BackToTop />
 
       {/* Fixed Bottom Navigation */}
-      <BottomNavigation onSearchClick={handleBackToLanding} />
+      <BottomNavigation onSearchClick={() => setShowMapView(true)} />
     </div>
   )
 }
