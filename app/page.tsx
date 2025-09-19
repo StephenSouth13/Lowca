@@ -13,6 +13,7 @@ import { MapView } from "@/components/map-view"
 import { Button } from "@/components/ui/button"
 import { Share2, Plus } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
+import BackToTop from "@/components/back-to-top"
 
 interface CurrentPick {
   id: string
