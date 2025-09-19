@@ -87,7 +87,7 @@ export function FilterSheet({ open, onOpenChange, onApplyFilters }: FilterSheetP
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[90vh] bg-card border-border">
+      <SheetContent side="bottom" className="h-[90vh] bg-card border-border md:h-auto md:max-h-[80vh] md:w-3/4 md:mx-auto md:rounded-lg md:top-1/2 md:-translate-y-1/2 md:transform">
         <SheetHeader className="pb-6">
           <div className="flex items-center justify-between">
             <SheetTitle className="text-card-foreground">Filters</SheetTitle>
