@@ -97,7 +97,7 @@ export function FilterSheet({ open, onOpenChange, onApplyFilters }: FilterSheetP
           </div>
         </SheetHeader>
 
-        <div className="space-y-8 overflow-y-auto h-full pb-24">
+        <div className="space-y-8 overflow-y-auto h-full pb-32 md:pb-6 px-4 md:px-6">
           {/* Location Types */}
           <div>
             <h3 className="font-semibold text-card-foreground mb-3">Location Type</h3>
