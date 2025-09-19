@@ -163,7 +163,7 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
         </div>
 
         {/* Location Pins */}
-        {nearbyLocations.map((location, index) => (
+        {visibleLocations.map((location, index) => (
           <button
             key={location.id}
             className={`absolute w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg transition-all ${
@@ -176,6 +176,7 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
               top: `${30 + (index % 3) * 20}%`,
             }}
             onClick={() => handleLocationSelect(location)}
+            title={`${location.name} — ${location.distance}`}
           >
             {index + 1}
           </button>
@@ -186,8 +187,16 @@ export function MapView({ onBack, onLocationClick, onShareLocation, onAddToCurre
           <div
             className="absolute w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg"
             style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
+            title="Your location"
           />
         )}
+
+        {/* Recenter / locate button */}
+        <div className="absolute right-3 top-3">
+          <Button size="sm" variant="outline" onClick={() => fetchUserLocation({ enableHighAccuracy: true })} className="h-9 w-9 p-0">
+            <MapPin className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
 
       {/* Location Details */}
